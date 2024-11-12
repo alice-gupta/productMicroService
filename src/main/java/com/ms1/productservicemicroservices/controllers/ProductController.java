@@ -3,6 +3,8 @@ package com.ms1.productservicemicroservices.controllers;
 import com.ms1.productservicemicroservices.models.Products;
 import com.ms1.productservicemicroservices.services.FakeStoreProductService;
 import com.ms1.productservicemicroservices.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,8 +20,28 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Products getProductById( @PathVariable("id") Long id){
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Products> getProductById(@PathVariable("id") Long id){
+        ResponseEntity<Products> responseEntity=new ResponseEntity<>(
+                productService.getSingleProduct(id),
+               HttpStatus.OK
+        );
+        return responseEntity;
+
+//        ResponseEntity<Products> responseEntity = null;
+//        try {
+//            Products products=productService.getSingleProduct(id);
+//            responseEntity=new ResponseEntity<>(
+//                    products,
+//                    HttpStatus.OK
+//           );
+//        }
+//        catch (Exception e) {
+//            responseEntity=new ResponseEntity<>(
+//                    HttpStatus.NOT_FOUND
+//
+//            );
+//       }
+//       return responseEntity;
     }
 
     @GetMapping("/")

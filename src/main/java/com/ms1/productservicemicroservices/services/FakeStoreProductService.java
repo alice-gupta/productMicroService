@@ -26,11 +26,13 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Products getSingleProduct(Long productId) {
+        throw new ArithmeticException();
+
         //call fakestore to fetch the products with given id=make http call
-       FakeStoreProductsDto fakeStoreProductsDto=restTemplate.getForObject("https://fakestoreapi.com/products/" + productId,
-               FakeStoreProductsDto.class
-       );
-       return convertFakeStoreProductToProducts(fakeStoreProductsDto);
+//       FakeStoreProductsDto fakeStoreProductsDto=restTemplate.getForObject("https://fakestoreapi.com/products/" + productId,
+//               FakeStoreProductsDto.class
+//       );
+//       return convertFakeStoreProductToProducts(fakeStoreProductsDto);
     }
 
 
@@ -60,7 +62,6 @@ public class FakeStoreProductService implements ProductService{
 
         FakeStoreProductsDto response= restTemplate.execute("https://fakestoreapi.com/products/"+ id,
                 HttpMethod.PATCH, requestCallback, responseExtractor);
-
         return convertFakeStoreProductToProducts(response);
     }
 
